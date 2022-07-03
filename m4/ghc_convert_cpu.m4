@@ -5,6 +5,9 @@
 # `libraries/base/System/Info.hs`'s documentation.
 AC_DEFUN([GHC_CONVERT_CPU],[
 case "$1" in
+  loongarch64)
+    $2="loongarch64"
+    ;;
   aarch64*|arm64*)
     $2="aarch64"
     ;;
@@ -75,7 +78,7 @@ case "$1" in
     $2="x86_64"
     ;;
   *)
-    echo "Unknown CPU $1"
+    echo "1123Unknown CPU $1"
     exit 1
     ;;
   esac

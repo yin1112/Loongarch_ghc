@@ -3,8 +3,12 @@
 # Drop in shell functions used by FPTOOLS_SET_HASKELL_PLATFORM_VARS
 AC_DEFUN([FPTOOLS_SET_HASKELL_PLATFORM_VARS_SHELL_FUNCTIONS],
 [
+    ## 添加
     checkArch() {
         case [$]1 in
+        loongarch64)
+            test -z "[$]2" || eval "[$]2=Archloongarch64"
+            ;;
         i386)
             test -z "[$]2" || eval "[$]2=ArchX86"
             ;;
@@ -54,7 +58,7 @@ AC_DEFUN([FPTOOLS_SET_HASKELL_PLATFORM_VARS_SHELL_FUNCTIONS],
 
     checkVendor() {
         case [$]1 in
-        dec|none|unknown|hp|apple|next|sun|sgi|ibm|montavista|portbld|alpine)
+        dec|none|unknown|hp|apple|next|sun|sgi|ibm|montavista|portbld|alpine|loongson)
             ;;
         *)
             AC_MSG_WARN([Unknown vendor [$]1])

@@ -45,6 +45,7 @@ data Arch
    | ArchMipsel
    | ArchRISCV64
    | ArchJavaScript
+   | Archloongarch64
    deriving (Read, Show, Eq, Ord)
 
 -- | ARM Instruction Set Architecture
@@ -133,7 +134,7 @@ stringEncodeArch = \case
   ArchMipsel        -> "mipsel"
   ArchRISCV64       -> "riscv64"
   ArchJavaScript    -> "js"
-
+  Archloongarch64   -> "loongarch64"
 -- | See Note [Platform Syntax].
 stringEncodeOS :: OS -> String
 stringEncodeOS = \case

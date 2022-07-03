@@ -334,7 +334,7 @@ AC_SUBST(TablesNextToCode)
 dnl ** Does target have runtime linker support?
 dnl --------------------------------------------------------------
 case "$target" in
-    powerpc64-*|powerpc64le-*|powerpc-ibm-aix*|s390x-ibm-linux|riscv64-*)
+    powerpc64-*|powerpc64le-*|powerpc-ibm-aix*|s390x-ibm-linux|riscv64-*|loongarch64-*)
         TargetHasRTSLinker=NO
         ;;
     *)
@@ -356,8 +356,7 @@ else
     AC_PATH_PROG([CC],[gcc], [clang])
     AC_PATH_PROG([CXX],[g++], [clang++])
     AC_PATH_PROG([NM],[nm])
-    # N.B. we don't probe for LD here but instead
-    # do so in FIND_LD to avoid #21778.
+    AC_PATH_PROG([LD],[ld])
     AC_PATH_PROG([AR],[ar])
     AC_PATH_PROG([RANLIB],[ranlib])
     AC_PATH_PROG([OBJDUMP],[objdump])
@@ -405,6 +404,8 @@ dnl --------------------------------------------------------------
 CrossCompiling=NO
 # If 'host' and 'target' differ, then this means we are building a cross-compiler.
 if test "$target" != "$host" ; then
+    #echo "build : $build ,host : $host ,target : $target"
+
     CrossCompiling=YES
     cross_compiling=yes   # This tells configure that it can accept just 'target',
                           # otherwise you get
@@ -558,7 +559,7 @@ AC_SUBST(InstallNameToolCmd)
 # tools we are looking for. In the past, GHC supported a number of
 # versions of LLVM simultaneously, but that stopped working around
 # 3.5/3.6 release of LLVM.
-LlvmMinVersion=10  # inclusive
+LlvmMinVersion=6  # inclusive
 LlvmMaxVersion=14 # not inclusive
 AC_SUBST([LlvmMinVersion])
 AC_SUBST([LlvmMaxVersion])
@@ -964,6 +965,7 @@ dnl Check for libraries
 dnl ################################################################
 
 FP_FIND_LIBFFI
+echo "--------------------------------"
 AC_SUBST(UseSystemLibFFI)
 AS_IF([test "x$with_system_libffi" = "xyes"],
   [CabalUseSystemLibFFI="True"],
@@ -1329,3 +1331,4 @@ mk/build.mk.sample to mk/build.mk, and edit the settings in there.
 For more information on how to configure your GHC build, see
    https://gitlab.haskell.org/ghc/ghc/wikis/building
 "]
+

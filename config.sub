@@ -116,6 +116,11 @@ IFS="-" read field1 field2 field3 field4 <<EOF
 $1
 EOF
 
+
+#添加点
+#echo "$field1 field2 field3 field4 $1"
+
+
 # Separate into logical components for further validation
 case $1 in
 	*-*-*-*-*)
@@ -644,6 +649,10 @@ esac
 case $basic_machine in
 	# Here we handle the default manufacturer of certain CPU types.  It is in
 	# some cases the only manufacturer, in others, it is the most popular.
+  loongarch64* |loongarch64* )
+    cpu=loongarch64
+    vendor=loongson
+    ;;
 	w89k)
 		cpu=hppa1.1
 		vendor=winbond
@@ -956,6 +965,10 @@ unset -v basic_machine
 case $cpu-$vendor in
 	# Here we handle the default manufacturer of certain CPU types in canonical form. It is in
 	# some cases the only manufacturer, in others, it is the most popular.
+  loongarch64* | loongarch64*)
+    cpu=loongarch64
+    vendor=loongson
+    ;;
 	craynv-unknown)
 		vendor=cray
 		basic_os=${basic_os:-unicosmp}
@@ -1230,6 +1243,7 @@ case $cpu-$vendor in
 			| pru \
 			| pyramid \
 			| riscv | riscv32 | riscv64 \
+      | loongarch64\
 			| rl78 | romp | rs6000 | rx \
 			| s390 | s390x \
 			| score \
@@ -1843,3 +1857,4 @@ exit
 # time-stamp-format: "%:y-%02m-%02d"
 # time-stamp-end: "'"
 # End:
+

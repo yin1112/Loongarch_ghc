@@ -15,7 +15,7 @@ AC_DEFUN([FPTOOLS_SET_PLATFORMS_VARS],
     #
     # In bindists, we haven't called AC_CANONICAL_{BUILD,HOST,TARGET}
     # so this justs uses $bootstrap_target.
-
+    
     if test "$build_alias" = ""
     then
         FPTOOLS_OVERRIDE_PLATFORM_FROM_BOOTSTRAP([build], [Build])
@@ -34,11 +34,14 @@ AC_DEFUN([FPTOOLS_SET_PLATFORMS_VARS],
     then
         if test "$host_alias" != ""
         then
+            #echo "goto one "
             GHC_CONVERT_PLATFORM_PARTS([host], [Target])
         else
+            #echo "goto two "
             FPTOOLS_OVERRIDE_PLATFORM_FROM_BOOTSTRAP([target], [Target])
         fi
     else
+        #echo "goto three $target_alias" #target_alias = aarch64-none-linux-gnu
         GHC_CONVERT_PLATFORM_PARTS([target], [Target])
     fi
 
@@ -77,6 +80,7 @@ dnl fi
 # compiler's target platform.
 AC_DEFUN([FPTOOLS_OVERRIDE_PLATFORM_FROM_BOOTSTRAP],
 [
+    #echo "bootstrap_target : $bootstrap_target"
     if test "$bootstrap_target" != ""
     then
         $1=$bootstrap_target
